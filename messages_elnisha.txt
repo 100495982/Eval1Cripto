@@ -1,0 +1,1 @@
+{"sender_public_key": "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEysTWJ/6DMgAoQY1uw/QniE50KHquDZsX\nJc5EYi725YXb5btxoZakMWhpfIg06tA0+NrSBOOXWi8jXSmnSq+8l/PHzr2Byn80\nqO0d+I8p5ijnUZGXyGVQn2X6TnC8RlD8\n-----END PUBLIC KEY-----\n", "nonce": "fmZApww5+ShGp0cG", "ciphertext": "8kntLnEeo+Rlt666UhNwtZz32cEZ"}

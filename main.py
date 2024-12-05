@@ -1,18 +1,22 @@
 from UserManager import UserAuthenticator
+from guiManager import GUIManager
 
 #Inicio de la funcion que se ejecutara al arrancar el programa.
 def main():
-    print("Welcome!")
+    # print("Welcome!")
 
     #Bucle que se ejecutara hasta que el usuario decida salir.
     while True:
-        print("\nPlease choose an option:")
-        print("1. Register")
-        print("2. Login")
-        print("3. Exit")
+        # print("\nPlease choose an option:")
+        # print("1. Register")
+        # print("2. Login")
+        # print("3. Exit")
+        gui = GUIManager()
+        gui.initial_options()
 
         #Seleccion de la opcion.
-        option = input("Select an option (1, 2, or 3): ")
+        # option = input("Select an option (1, 2, or 3): ")
+        option = input()
         if option == "1":
             #Registro de un nuevo usuario.
             success = UserAuthenticator.register()
@@ -23,7 +27,7 @@ def main():
             session = UserAuthenticator.login()
             if session:
                 while True:
-                    print("\nYou are logged in.")
+                    gui.print_msg("\nYou are logged in.", "green")
                     action = input(
                         "Type 'send' to send a message, 'read' to read messages, or 'exit' to log out: ").strip().lower()
                     if action == "send":
