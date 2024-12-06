@@ -22,6 +22,3 @@ El proyecto se divide en 2 entregas.
 - Defensa ($1$)
 
 **Puntuación Total Entrega 1**: $0.75 + 0.75 + 0.75 + 0.25 + 1.5 + 1 = \boxed{5}$
-
-
-Random change to try pushing with public key

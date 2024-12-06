@@ -24,8 +24,24 @@ class GUIManager:
         
         self.console.print(Padding(initial_table, (0, self._pad, 0, self._pad)))
         self.print_msg("Select an option (1, 2, 3): ")  
-
-
+    
+    
+    def session_options(self):
+        self.console.print(f"[green] Welcome back, it's good to see you again [/green]",
+                           justify="center")
+        session_table = Table(width=self._width,
+                              title="[green]Please choose an option: [/green]",
+                              expand=True)
+        session_table.add_column("For action", style="cyan", justify="left")
+        session_table.add_column("Type:", style="cyan", justify="left")
+        
+        session_table.add_row("Send a message to a registered user", "send")
+        session_table.add_row("Read your messages", "read")
+        session_table.add_row("Exit session", "exit")
+        
+        self.console.print(Padding(session_table, (0, self._pad, 0, self._pad)))
+        self.print_msg("Please input action: ")  
+    
     @staticmethod 
     def print_msg(msg: str, options=""):
         """ Funcion que toma un str y lo formatea a azul en italicas y centrado """
