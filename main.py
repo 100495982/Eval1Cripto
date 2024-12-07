@@ -1,18 +1,22 @@
 from UserManager import UserAuthenticator
+from guiManager import GUIManager
 
 #Inicio de la funcion que se ejecutara al arrancar el programa.
 def main():
-    print("Welcome!")
+    # print("Welcome!")
 
     #Bucle que se ejecutara hasta que el usuario decida salir.
     while True:
-        print("\nPlease choose an option:")
-        print("1. Register")
-        print("2. Login")
-        print("3. Exit")
+        # print("\nPlease choose an option:")
+        # print("1. Register")
+        # print("2. Login")
+        # print("3. Exit")
+        gui = GUIManager()
+        gui.initial_options()
 
         #Seleccion de la opcion.
-        option = input("Select an option (1, 2, or 3): ")
+        # option = input("Select an option (1, 2, or 3): ")
+        option = input()
         if option == "1":
             #Registro de un nuevo usuario.
             success = UserAuthenticator.register()
@@ -22,28 +26,30 @@ def main():
             # Si el usuario se ha logueado correctamente, se ejecutara el bucle de la sesion.
             session = UserAuthenticator.login()
             if session:
+                gui.print_msg("\nYou are logged in.", "green")
                 while True:
-                    print("\nYou are logged in.")
-                    action = input(
-                        "Type 'send' to send a message, 'read' to read messages, or 'exit' to log out: ").strip().lower()
+                    gui.session_options()
+                    action = input().strip().lower()
                     if action == "send":
-                        receiver = input("Enter recipient's username: ")
-                        message = input("Enter your message: ")
+                        gui.print_msg("Enter recipient's username: ")
+                        receiver = input()
+                        gui.print_msg("Enter your message: ")
+                        message = input()
                         session.encrypt_message(receiver, message)
                     elif action == "read":
                         session.decrypt_message()
                     elif action == "exit":
                         session.end_session()
-                        print("Logged out successfully.")
+                        gui.print_msg("Logged out successfully.", "green")
                         break
                     else:
-                        print("Invalid option.")
+                        gui.print_msg("Invalid option.", "red")
         elif option == "3":
             #Salida del programa.
-            print("Exiting program.")
+            gui.print_msg("Exiting program.", "red")
             break
         else:
-            print("Invalid option.")
+            gui.print_msg("Invalid option.", "red")
 
 
 if __name__ == "__main__":

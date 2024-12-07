@@ -9,6 +9,7 @@ from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from JSONManager import JSONManager
+from guiManager import GUIManager
 
 #Clase que se encarga de la gestion de la sesion de un usuario.
 class UserSession:
@@ -126,4 +127,5 @@ class UserSession:
     #Finaliza la sesion del usuario.
     def end_session(self):
         self.private_key = None
-        print(f"Session ended for {self.username}.")
+        gui = GUIManager 
+        gui.print_msg(f"Session ended for {self.username}.", "red")
