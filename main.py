@@ -7,15 +7,10 @@ def main():
 
     #Bucle que se ejecutara hasta que el usuario decida salir.
     while True:
-        # print("\nPlease choose an option:")
-        # print("1. Register")
-        # print("2. Login")
-        # print("3. Exit")
         gui = GUIManager()
         gui.initial_options()
 
         #Seleccion de la opcion.
-        # option = input("Select an option (1, 2, or 3): ")
         option = input()
         if option == "1":
             #Registro de un nuevo usuario.
