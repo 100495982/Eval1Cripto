@@ -129,3 +129,31 @@ class UserSession:
         self.private_key = None
         gui = GUIManager 
         gui.print_msg(f"Session ended for {self.username}.", "red")
+
+
+    # metodo para firmar mensajes
+    def sign_message(self, message):
+        signature = self.private_key.sign(
+                message.encode(),
+                ec.ECDSA(hashes.SHA256())
+        )
+        return signature
+
+    # metodo para verificar firmas de mensajes
+    def verify_signature(self, message, signature, sender_cert_path):
+        with open(sender_cert_path, "rb") as f:
+            sender_cert = load_pem_x509_certificate(f.read())
+
+        sender_public_key = sender_cert.public_key()
+
+        # Verificar firma
+        try:
+            sender_public_key.verify(
+                    signature,
+                    message.encode(),
+                    ec.ECDSA(hashes.SHA256())
+            )
+            print("Firma válida.")
+        except InvalidSignature:
+            print("Firma inválida.")
+
