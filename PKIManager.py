@@ -1,6 +1,6 @@
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.x509 import CertificateBuilder, NameOID
+from cryptography.x509 import CertificateBuilder, NameOID, CertificateSigningRequestBuilder
 import cryptography.x509 as x509
 import datetime
 

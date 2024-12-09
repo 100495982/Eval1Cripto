@@ -6,6 +6,7 @@ from cryptography.hazmat.primitives.asymmetric import ec
 from JSONManager import JSONManager
 from SessionManager import UserSession
 from guiManager import GUIManager
+from PKIManager import PKIManager
 
 #Hasheo de la contraseña usando SHA-256.
 def hash_password(password):
@@ -46,6 +47,9 @@ class UserAuthenticator:
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         ).decode('utf-8')
+
+        csr_filename = PKIManager.generar_csr(username, private_key)
+        PKIManager.emitir_certificado(csr_filename, username)
 
         #Guarda la información del usuario en el JSON.
         user_data[username] = {

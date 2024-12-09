@@ -1,9 +1,19 @@
+import os
+
+from PKIManager import PKIManager
 from UserManager import UserAuthenticator
 from guiManager import GUIManager
 
 #Inicio de la funcion que se ejecutara al arrancar el programa.
 def main():
     # print("Welcome!")
+
+    # Ensure the Root CA exists before the application starts
+    if not os.path.exists("root_key.pem") or not os.path.exists("root_cert.pem"):
+        print("Creating Root Certificate Authority...")
+        PKIManager.crear_ca()
+    else:
+        print("Root Certificate Authority already exists.")
 
     #Bucle que se ejecutara hasta que el usuario decida salir.
     while True:
