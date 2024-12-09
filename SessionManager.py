@@ -77,6 +77,9 @@ class UserSession:
         nonce = os.urandom(12)
         ciphertext = chacha.encrypt(nonce, message.encode('utf-8'), None)
         
+        # Firma el mensaje
+        signature = self.sign_message(message)
+
         #Guarda el mensaje en un archivo.
         with open(f"messages_{receiver_username}.txt", "ab") as f:
             f.write(json.dumps({
@@ -85,7 +88,8 @@ class UserSession:
                     format=serialization.PublicFormat.SubjectPublicKeyInfo
                 ).decode('utf-8'),
                 "nonce": base64.b64encode(nonce).decode('utf-8'),
-                "ciphertext": base64.b64encode(ciphertext).decode('utf-8')
+                "ciphertext": base64.b64encode(ciphertext).decode('utf-8'),
+                "sender_singature": base64.b64encode(signature).decode('utf-8')
             }).encode() + b"\n")
         print(f"Message encrypted and stored for {receiver_username}.")
 
@@ -116,7 +120,12 @@ class UserSession:
                     chacha = ChaCha20Poly1305(derived_key)
                     nonce = base64.b64decode(msg["nonce"])
                     ciphertext = base64.b64decode(msg["ciphertext"])
+                    sender_sig = base64.b64decode(msg["sender_signature"])
                     plaintext = chacha.decrypt(nonce, ciphertext, None)
+
+                    # Verificar firma
+                    self.verify_signature(plaintext.decode('utf-8'), sender_sig, "certificate.pem")
+
                     print(f"Decrypted message: {plaintext.decode('utf-8')}")
         except FileNotFoundError:
             print("No messages found.")
@@ -130,7 +139,7 @@ class UserSession:
         gui = GUIManager 
         gui.print_msg(f"Session ended for {self.username}.", "red")
 
-
+    
     # metodo para firmar mensajes
     def sign_message(self, message):
         signature = self.private_key.sign(
@@ -138,7 +147,7 @@ class UserSession:
                 ec.ECDSA(hashes.SHA256())
         )
         return signature
-
+    
     # metodo para verificar firmas de mensajes
     def verify_signature(self, message, signature, sender_cert_path):
         with open(sender_cert_path, "rb") as f:

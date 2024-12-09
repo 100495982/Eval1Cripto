@@ -7,7 +7,7 @@ def main():
 
     #Bucle que se ejecutara hasta que el usuario decida salir.
     while True:
-        gui = GUIManager()
+        gui = GUIManager
         gui.initial_options()
 
         #Seleccion de la opcion.
